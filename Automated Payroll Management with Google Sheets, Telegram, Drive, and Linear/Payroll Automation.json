@@ -1,0 +1,211 @@
+{
+  "name": "Google Spreadsheet",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "b83034b5-d8cc-454d-9cfe-084e7734c6ba",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -416,
+        -16
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "function formatDate(date) {\n  const d = date.getDate().toString().padStart(2, '0');\n  const m = (date.getMonth() + 1).toString().padStart(2, '0');\n  const y = date.getFullYear();\n  return `${d}/${m}/${y}`;\n}\n\nreturn [\n  { json: { \"Employee Name\": \"Vignesh\", \"Designation\": \"Web Developer\", \"Salary\": 12000, \"Date\": formatDate(new Date()) }},\n  { json: { \"Employee Name\": \"Kumaradoss\", \"Designation\": \"Corporate IT Trainer\", \"Salary\": 15000, \"Date\": formatDate(new Date()) }},\n  { json: { \"Employee Name\": \"Aishwarya\", \"Designation\": \"UI/UX Designer\", \"Salary\": 18000, \"Date\": formatDate(new Date()) }},\n  { json: { \"Employee Name\": \"Ramesh\", \"Designation\": \"Backend Developer\", \"Salary\": 20000, \"Date\": formatDate(new Date()) }},\n  { json: { \"Employee Name\": \"Divya\", \"Designation\": \"HR Executive\", \"Salary\": 14000, \"Date\": formatDate(new Date()) }},\n  { json: { \"Employee Name\": \"Suresh\", \"Designation\": \"Frontend Developer\", \"Salary\": 17000, \"Date\": formatDate(new Date()) }},\n  { json: { \"Employee Name\": \"Meena\", \"Designation\": \"QA Tester\", \"Salary\": 16000, \"Date\": formatDate(new Date()) }},\n  { json: { \"Employee Name\": \"Arjun\", \"Designation\": \"DevOps Engineer\", \"Salary\": 25000, \"Date\": formatDate(new Date()) }},\n  { json: { \"Employee Name\": \"Priya\", \"Designation\": \"Data Analyst\", \"Salary\": 19000, \"Date\": formatDate(new Date()) }},\n  { json: { \"Employee Name\": \"Karthik\", \"Designation\": \"Cloud Engineer\", \"Salary\": 26000, \"Date\": formatDate(new Date()) }},\n  { json: { \"Employee Name\": \"Sandhya\", \"Designation\": \"Content Writer\", \"Salary\": 13000, \"Date\": formatDate(new Date()) }},\n  { json: { \"Employee Name\": \"Manoj\", \"Designation\": \"IT Support\", \"Salary\": 15000, \"Date\": formatDate(new Date()) }},\n  { json: { \"Employee Name\": \"Lakshmi\", \"Designation\": \"Business Analyst\", \"Salary\": 21000, \"Date\": formatDate(new Date()) }},\n  { json: { \"Employee Name\": \"Vikram\", \"Designation\": \"Software Architect\", \"Salary\": 30000, \"Date\": formatDate(new Date()) }},\n  { json: { \"Employee Name\": \"Deepa\", \"Designation\": \"Graphic Designer\", \"Salary\": 14000, \"Date\": formatDate(new Date()) }},\n  { json: { \"Employee Name\": \"Sanjay\", \"Designation\": \"Security Analyst\", \"Salary\": 22000, \"Date\": formatDate(new Date()) }},\n  { json: { \"Employee Name\": \"Harini\", \"Designation\": \"Product Manager\", \"Salary\": 32000, \"Date\": formatDate(new Date()) }},\n  { json: { \"Employee Name\": \"Rahul\", \"Designation\": \"Full Stack Developer\", \"Salary\": 27000, \"Date\": formatDate(new Date()) }},\n  { json: { \"Employee Name\": \"Anitha\", \"Designation\": \"Recruiter\", \"Salary\": 15000, \"Date\": formatDate(new Date()) }},\n  { json: { \"Employee Name\": \"Naveen\", \"Designation\": \"Systems Administrator\", \"Salary\": 20000, \"Date\": formatDate(new Date()) }},\n  { json: { \"Employee Name\": \"Sathish\",   \"Designation\": \"QA Lead\",                  \"Salary\": 18000, \"Date\": formatDate(new Date()) }},\n  { json: { \"Employee Name\": \"Jayanthi\",  \"Designation\": \"Technical Writer\",         \"Salary\": 16000, \"Date\": formatDate(new Date()) }},\n  { json: { \"Employee Name\": \"Gautham\",   \"Designation\": \"Mobile App Developer\",     \"Salary\": 23000, \"Date\": formatDate(new Date()) }},\n  { json: { \"Employee Name\": \"Muthu\",     \"Designation\": \"Network Engineer\",         \"Salary\": 19500, \"Date\": formatDate(new Date()) }},\n  { json: { \"Employee Name\": \"Preethi\",   \"Designation\": \"SEO Specialist\",           \"Salary\": 14500, \"Date\": formatDate(new Date()) }},\n  { json: { \"Employee Name\": \"Ritu\",      \"Designation\": \"Social Media Manager\",     \"Salary\": 17000, \"Date\": formatDate(new Date()) }},\n  { json: { \"Employee Name\": \"Ajay\",      \"Designation\": \"Business Development\",     \"Salary\": 18500, \"Date\": formatDate(new Date()) }},\n  { json: { \"Employee Name\": \"Shruthi\",   \"Designation\": \"UI Developer\",             \"Salary\": 17500, \"Date\": formatDate(new Date()) }},\n  { json: { \"Employee Name\": \"Nitin\",     \"Designation\": \"Machine Learning Engineer\",\"Salary\": 28500, \"Date\": formatDate(new Date()) }},\n  { json: { \"Employee Name\": \"Poornima\",  \"Designation\": \"Database Administrator\",   \"Salary\": 24000, \"Date\": formatDate(new Date()) }}\n\n];\n"
+      },
+      "id": "f12d2491-b7be-4895-ad6f-5932d5398815",
+      "name": "Calculate Salaries",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        -96,
+        -16
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "sheetId": "1x6rwWFWh7LkIkCl9FI-lZju8yrs4j3WIbik_djGiM4w",
+        "options": {
+          "valueInputMode": "RAW"
+        }
+      },
+      "id": "bef0e1fa-e4e6-4995-8e3d-cea3bfe0d35f",
+      "name": "Google Sheets Append",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 2,
+      "position": [
+        192,
+        -16
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "zrtXc6g6Z3RoVGnU",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "2058407139",
+        "text": "=Payroll entry for {{ $json[\"Employee Name\"] }} ({{ $json[\"Designation\"] }}) of ₹{{ $json[\"Salary\"] }} has been successfully added on {{ $json[\"Date\"] }}. \n\nSee the sheet: https://docs.google.com/spreadsheets/d/1x6rwWFWh7LkIkCl9FI-lZju8yrs4j3WIbik_djGiM4w/edit?gid=0#gid=0",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        528,
+        -224
+      ],
+      "id": "d12a99ad-e3a3-48c5-9c46-a0de9992f8c5",
+      "name": "Send a text message",
+      "webhookId": "cf170072-9772-4d24-8ee8-92b0cd2bdc97",
+      "credentials": {
+        "telegramApi": {
+          "id": "EjrbmYldZDEWArwM",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "fileId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1x6rwWFWh7LkIkCl9FI-lZju8yrs4j3WIbik_djGiM4w/edit?gid=0#gid=0",
+          "mode": "url"
+        },
+        "newUpdatedFileName": "=Payroll-Backup-{{ $now.format('dd-LL-yyyy') }}.xlsx",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        544,
+        176
+      ],
+      "id": "e448fa12-9864-4b5b-8fdf-cf5aebe6d60e",
+      "name": "Update file",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "PZ0slSuTlFNQO26s",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const rows = items.map(item =>\n  `| ${item.json[\"Employee Name\"]} | ${item.json.Designation} | ₹${item.json.Salary} | ${item.json.Date} |`\n);\nconst header = \"| Name | Designation | Salary | Date |\";\nconst divider = \"|------|-------------|--------|------|\";\nconst table = [header, divider, ...rows].join(\"\\n\");\nreturn [{json: {description: table}}];\n\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        528,
+        -16
+      ],
+      "id": "799ceab7-de95-4248-ac33-f54e0b13d353",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "operation": "update",
+        "issueId": "WEB-108",
+        "updateFields": {
+          "assigneeId": "b944a5b3-041c-4092-87f3-2509db0cef52",
+          "description": "={{ $json[\"description\"] }}",
+          "title": "PAYROLL"
+        }
+      },
+      "type": "n8n-nodes-base.linear",
+      "typeVersion": 1.1,
+      "position": [
+        832,
+        -16
+      ],
+      "id": "7a174e40-afa3-439a-a1f9-ba56c3d3a4fe",
+      "name": "Update an issue",
+      "credentials": {
+        "linearOAuth2Api": {
+          "id": "vs4XtpcGi7lewPni",
+          "name": "Linear account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Calculate Salaries",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calculate Salaries": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets Append",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets Append": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Update file",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Update an issue",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "96362fb2-4f29-4564-a168-4f89fcd63c9a",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "052437b01e101edcd104a55dcd4f969d988079346f4c08a9f825ebbe003ff2d4"
+  },
+  "id": "zx8Vlrx5qQL9RFpx",
+  "tags": []
+}
