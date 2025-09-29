@@ -384,14 +384,5 @@ See the full tutorial for setup steps, credential creation, and troubleshooting.
 - If you encounter “label not found,” always use provider search bar and documentation links.
 - Use n8n’s Test button for credential validation.
 
-***
 
-**Done! If you need a visual PDF, a sample environment file, or require advanced customizations (e.g., more notifications, batch reporting), let me know! This tutorial covers every step to fully implement and securely run the workflow with all integrations.**
-<span style="display:none">[^1]</span>
-
-```
-<div style="text-align: center">⁂</div>
-```
-
-[^1]: Google-Spreadsheet.json
 
