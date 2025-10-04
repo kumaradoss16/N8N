@@ -170,8 +170,3 @@ return [{
 **Congratulations!**
 You’ve built a fully automated employee attendance system powered by WhatsApp, Google, and Telegram—all using n8n and zero code deployments.
 Refine the workflow as your team grows and needs evolve!
-<span style="display:none">[^1]</span>
-
-<div align="center">⁂</div>
-
-[^1]: Attendance-Tracker.json
