@@ -1,6 +1,5 @@
 # Automate Employee Attendance Tracking with WhatsApp, Google Sheets, Drive, and Telegram using n8n
 
----
 
 ## What You’ll Learn
 
@@ -10,8 +9,6 @@
 - **Telegram Notifications:** Instantly confirm entries to HR/admins via chat.
 - **JavaScript Parsing:** Use a Code node to extract and format message details inside n8n.
 - **End-to-End Automation:** Combine all tools into one seamless, no-code workflow.
-
----
 
 ## Project Purpose
 
