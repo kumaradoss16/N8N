@@ -2,7 +2,6 @@
 
 
 ## What You’ll Learn
-
 - **WhatsApp Integration:** Capture and automate incoming attendance messages.
 - **Google Sheets Automation:** Log each IN/OUT with accurate timestamps in a spreadsheet.
 - **Google Drive Sync:** Automatically update/export your attendance file for backup or distribution.
@@ -11,18 +10,14 @@
 - **End-to-End Automation:** Combine all tools into one seamless, no-code workflow.
 
 ## Project Purpose
-
 Track employee IN/OUT times sent via WhatsApp:
-
 - Example: “Kumar OUT 7:30pm”
 - Record every entry in Google Sheets with time and message details
 - Instantly update/export the attendance log to Drive
 - Send a confirmation message to a Telegram group
 
----
 
 ## Step-by-Step Setup Instructions
-
 ### 1. Access or Install n8n
 
 - **Cloud:** Sign up at [n8n.cloud](https://n8n.cloud/)
@@ -34,14 +29,10 @@ docker run -it --rm -p 5678:5678 n8nio/n8n
 
 - Open the n8n editor UI in your browser.
 
----
-
 ### 2. Create a New Workflow
 
 - Click `+ New Workflow`
 - Name it: **Attendance Tracker**
-
----
 
 ### 3. Add WhatsApp Trigger Node
 
@@ -49,8 +40,6 @@ docker run -it --rm -p 5678:5678 n8nio/n8n
 - Connect it to your WhatsApp Business API or preferred provider (Twilio, WATI, etc.).
 - Configure OAuth/API credentials in `WhatsApp OAuth account`.
 - Set up webhook in your provider to point to the node’s webhook URL.
-
----
 
 ### 4. Add a Code (JavaScript) Node
 
@@ -85,8 +74,6 @@ return [{
 }];
 ```
 
----
-
 ### 5. Add Google Sheets Node
 
 - Add **Google Sheets** node after the Code node.
@@ -106,16 +93,12 @@ return [{
 
 - Format Sheet columns with headers for readability.
 
----
-
 ### 6. Add Google Drive Node
 
 - Add **Google Drive** node next.
 - Set operation to **Update File** (using your Sheet’s file ID) for interactive updates, or **Export File** to create a distribution-ready version.
 - Connect Google Drive OAuth2 credentials.
 - **Paste your File ID** (from Google Drive file URL).
-
----
 
 ### 7. Add Telegram Node
 
@@ -130,16 +113,12 @@ return [{
 
     - Set Parse Mode: `HTML` or `Markdown` (per your preference)
 
----
-
 ## Google Sheet Formatting
 
 - Add columns in **Row 1**:
   `Name | Status | Time | Date | UserMessage | rawTimestamp`
 - Freeze the first row for clarity.
 - Format `Date` as `DD/MM/YYYY`, and `Time` as `hh:mm AM/PM` for dashboards.
-
----
 
 ## Execution Flow: Example
 
@@ -158,8 +137,6 @@ return [{
 - **Drive:** Node updates or exports the attendance file for backup/distribution.
 - **Telegram:** Bot sends “Kumar (OUT at 07:30 PM on 26/09/2025)” to your group/channel.
 
----
-
 ## How to Test
 
 1. **Send Test WhatsApp Message:**
@@ -173,8 +150,6 @@ return [{
 5. **Debugging:**
    - If any node fails, check execution logs in n8n (shows error, payload, and suggestions).
 
----
-
 ## Error Handling Tips
 
 - **Validate message format:**
@@ -184,8 +159,6 @@ return [{
 - **Google API Errors:**
   - Ensure your OAuth credentials have correct permissions and files are shared appropriately.
 
----
-
 ## Mini-Challenge: Level Up!
 
 **Enhance this workflow:**
@@ -193,8 +166,6 @@ return [{
 - Add another Code and Sheets node to generate a daily summary (“3 employees present, 2 absent on 26/09/2025”).
 - Send the summary at 8pm every day to Telegram or your HR’s email using the Email node.
 - Try adding Slack or Discord notifications!
-
----
 
 **Congratulations!**
 You’ve built a fully automated employee attendance system powered by WhatsApp, Google, and Telegram—all using n8n and zero code deployments.
