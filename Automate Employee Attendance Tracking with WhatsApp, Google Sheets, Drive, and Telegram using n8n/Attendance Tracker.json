@@ -1,0 +1,261 @@
+{
+  "name": "Attendance Tracker",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "messages"
+        ],
+        "options": {
+          "messageStatusUpdates": [
+            "all"
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.whatsAppTrigger",
+      "typeVersion": 1,
+      "position": [
+        -384,
+        -96
+      ],
+      "id": "2a3801d7-370b-48fe-b212-e59b01761c34",
+      "name": "WhatsApp Trigger",
+      "webhookId": "ba0dccbc-7c1b-468a-b5d4-2942d7df8dc7",
+      "notesInFlow": true,
+      "credentials": {
+        "whatsAppTriggerApi": {
+          "id": "O2jX6aQF5PoHpUic",
+          "name": "WhatsApp OAuth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Timing check: Only allow processing between 8:00 - 20:00 IST (adjust as needed)\nconst now = new Date();\nconst hoursIST = now.toLocaleString('en-US', { hour: '2-digit', hour12: false, timeZone: 'Asia/Kolkata' });\nconst hour = parseInt(hoursIST, 10);\n\n// Block/stop workflow if current time is not in allowed window\nif (hour < 9 || hour > 20) {\n  return []; // Return empty = skip/stop node chain\n}\n\n// --- Parse WhatsApp payload ---\nconst data = items[0].json;\n\n// Get the exact user message as sent (original case)\nconst userMessage = data.messages?.[0]?.text?.body || \"\";\n\n// Extract employee info\nconst name = data.contacts?.[0]?.profile?.name || \n              userMessage.split(' ')[0] || \n              \"Unknown Employee\";\n\n// Determine status from message (IN/OUT), case insensitive\nconst messageText = userMessage.toLowerCase();\nconst status = messageText.includes(\"out\") ? \"OUT\" : \"IN\";\n\n// Convert timestamp to IST\nconst timestamp = new Date(parseInt(data.messages?.[0]?.timestamp) * 1000);\n\n// Format time as 12-hour with AM/PM (IST)\nconst timeOptions = { \n  hour: '2-digit', \n  minute: '2-digit', \n  hour12: true,\n  timeZone: 'Asia/Kolkata'\n};\nlet time = timestamp.toLocaleTimeString('en-IN', timeOptions);\n\n// Ensure AM/PM is uppercase\ntime = time.replace(/\\s?(am|pm)/i, match => match.toUpperCase());\n\n// Format date as dd/mm/yyyy (IST)\nconst dateOptions = { \n  day: '2-digit', \n  month: '2-digit', \n  year: 'numeric',\n  timeZone: 'Asia/Kolkata'\n};\nconst date = timestamp.toLocaleDateString('en-GB', dateOptions);\n\nreturn [{\n  json: {\n    Name: name,\n    Status: status,\n    Time: time,             // 12-hour IST with AM/PM\n    Date: date,\n    UserMessage: userMessage, // Separate column for user's original message\n    rawTimestamp: data.messages?.[0]?.timestamp\n  }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -192,
+        -96
+      ],
+      "id": "7691cf89-45e3-4f34-b0e3-e4189ea4a4c6",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1VvpzS8_GesSn02g8VkMnKWPMopEV3Rj7a6CNBdxVAwk",
+          "mode": "list",
+          "cachedResultName": "Attendance Tracker",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1VvpzS8_GesSn02g8VkMnKWPMopEV3Rj7a6CNBdxVAwk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1VvpzS8_GesSn02g8VkMnKWPMopEV3Rj7a6CNBdxVAwk/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Time",
+              "displayName": "Time",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Date",
+              "displayName": "Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "UserMessage",
+              "displayName": "UserMessage",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "rawTimestamp",
+              "displayName": "rawTimestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        16,
+        -96
+      ],
+      "id": "68d619ea-4a42-43ae-bf2d-b48e278ff782",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "zrtXc6g6Z3RoVGnU",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "fileId": {
+          "__rl": true,
+          "value": "1KIifcB1XhdiQ2095dtRxuFsOkzU2ibDJvHQWzsu2BAE",
+          "mode": "list",
+          "cachedResultName": "Attendance Tracker",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1KIifcB1XhdiQ2095dtRxuFsOkzU2ibDJvHQWzsu2BAE/edit?usp=drivesdk"
+        },
+        "newUpdatedFileName": "=Attendance Tracker.xlsx",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        320,
+        32
+      ],
+      "id": "141b2ac6-87fd-44ac-b654-212cf7ff053e",
+      "name": "Update file",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "PZ0slSuTlFNQO26s",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "2058407139",
+        "text": "={{ $json[\"Name\"] }} ({{ $json[\"Status\"] }} at {{ $json[\"Time\"] }} on {{ $json[\"Date\"] }})\n",
+        "additionalFields": {
+          "parse_mode": "HTML"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        320,
+        -224
+      ],
+      "id": "b0bb31da-5019-4033-b83b-8f25f06b34cf",
+      "name": "Send a text message",
+      "webhookId": "2ca6ee3a-e448-4cb2-9423-0e330d01ac7d",
+      "credentials": {
+        "telegramApi": {
+          "id": "EjrbmYldZDEWArwM",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "WhatsApp Trigger": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Update file",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update file": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "timezone": "Indian/Mahe",
+    "errorWorkflow": "BXqVdRkx9MmH5Nms"
+  },
+  "versionId": "bbb88048-1c42-4e33-b7a8-b30031bb8a69",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "052437b01e101edcd104a55dcd4f969d988079346f4c08a9f825ebbe003ff2d4"
+  },
+  "id": "BXqVdRkx9MmH5Nms",
+  "tags": []
+}
